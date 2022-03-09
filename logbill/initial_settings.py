@@ -13,3 +13,8 @@ STATICFILES_DIRS = [
     BASE_DIR/ "static" / "static_dir",
     BASE_DIR/ "frontend" / "build"/"static",
 ]
+
+
+MY_INSTALL_APP=[
+    'core'
+]
