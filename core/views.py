@@ -19,3 +19,4 @@ class FlatDetails(generics.RetrieveUpdateAPIView):
     serializer_class = FlatSerializer
     lookup_field='room_id'
 
+
