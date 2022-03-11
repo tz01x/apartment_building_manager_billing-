@@ -16,5 +16,6 @@ STATICFILES_DIRS = [
 
 
 MY_INSTALL_APP=[
-    'core'
+    'core',
+    'rest_framework'
 ]

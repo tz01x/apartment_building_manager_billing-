@@ -5,15 +5,15 @@ from django.db import models
 from datetime import datetime
 
 class Flat(models.Model):
-    room_id = models.CharField(unique=True, max_length=2)
+    room_id = models.CharField(unique=True, max_length=4)
     has_sublate = models.BooleanField(default=False)
     sublate = models.ManyToManyField(to='Flat',blank=True,null=True)
     description = models.TextField(blank=True)
     def __str__(self) :
         return self.room_id
-    def save(self):
+    def save(self,*args, **kwargs):
         # 
-        return super().save()
+        return super().save(*args, **kwargs)
     class Meta:
         ordering=['room_id']
 
