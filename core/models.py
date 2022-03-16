@@ -21,7 +21,6 @@ class ExtraCharge(models.Model):
     title = models.CharField(max_length=20)
     title_bn = models.CharField(max_length=20)
     amount = models.FloatField()
-
     def __str__(self) -> str:
         return self.title
 
@@ -37,6 +36,7 @@ class Resident(models.Model):
     updated = models.DateField(auto_now_add=True)
     flat = models.ForeignKey(
         to=Flat, related_name='residents', on_delete=models.CASCADE)
+    currently_staying=models.BooleanField(default=False)
     rent = models.FloatField()
     extraCharge = models.ManyToManyField(to=ExtraCharge,blank=True)
 
