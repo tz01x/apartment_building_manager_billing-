@@ -51,7 +51,7 @@ class ResidentList(generics.ListAPIView):
     queryset = Resident.objects.all()
     serializer_class = ResidentSerializer
 
-class ElectricityMeterReadingList(generics.ListAPIView):
+class ElectricityMeterReadingList(generics.ListCreateAPIView):
     queryset = ElectricityMeterReading.objects.all()
     serializer_class = ElectricityMeterReadingSerializer
 

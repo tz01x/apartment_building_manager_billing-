@@ -3,6 +3,7 @@
 from django.utils.text import slugify
 from django.db import models
 from datetime import datetime
+from django.core.exceptions import ValidationError
 
 class Flat(models.Model):
     room_id = models.CharField(unique=True, max_length=4)
@@ -53,26 +54,53 @@ class Resident(models.Model):
 
 class ElectricityMeterReading(models.Model):
     current_meterReading = models.IntegerField()
-    previous_meterReading = models.IntegerField()
+    previous_meterReading = models.IntegerField(default=0)
     unit = models.IntegerField(default=12)
+    join = models.DateField()
     created = models.DateField(auto_now=True)
     updated = models.DateField(auto_now_add=True)
     resident = models.ForeignKey(
         to=Resident, on_delete=models.RESTRICT, related_name='meter_readings')
 
     def __str__(self):
-        return str(self.created)+" metter: "+self.meterReading
+        return str(self.join)+" metter: "+str(self.current_meterReading)
+
+    def clean(self):
+        
+        if self.join is None:
+            raise ValidationError({'join':"Date field can't be empty"})
+
+        try :
+            if self.resident is None:
+                raise ValidationError({'resident':"Resident field can't be empty"})
+        except Exception as e :
+            raise ValidationError({'resident':""})
+
+
+        obj=ElectricityMeterReading.objects.filter(join__month=self.join.month,
+                                                    join__year=self.join.year,
+                                                    resident=self.resident)
+            
+        if self.id is not None:
+            obj=obj.exclude(id=self.id).first()
+        else:
+            obj=obj.first()
+
+        if obj:
+            raise ValidationError({'join':"duplicated date entry found"})
+                                   
 
 
 class MonthlyPaid(models.Model):
     created = models.DateField(auto_now=True)
     updated = models.DateField(auto_now_add=True)
-    
+    join = models.DateField()
     resident = models.ForeignKey(
         to=Resident, on_delete=models.RESTRICT, related_name='monthly_paid')
 
     rent_paid=models.FloatField()
     electricity_bill_paid=models.FloatField()
+
 
     def __str__(self):
         return str(self.created.strftime("%B"))+" "+self.resident.name
