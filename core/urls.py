@@ -1,7 +1,7 @@
 from django.urls import path,include
 from .views import (FlatList,FlatDetails,addSublate,removeSublate,ExtraChargeList,
                     ResidentList,
-                    ElectricityMeterReadingList,
+                    ElectricityMeterReadingListAndCreateView,
                     MonthlyPaidMeterReadingList)
                     
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path('flat/<str:room_id>/sublate/remove/',removeSublate),
     path('extra-charge/',ExtraChargeList.as_view()),
     path('resident/',ResidentList.as_view()),
-    path('electricity-meter-reading/',ElectricityMeterReadingList.as_view()),
+    path('electricity-meter-reading/',ElectricityMeterReadingListAndCreateView.as_view()),
     path('monthly-paid-meter-reading/',MonthlyPaidMeterReadingList.as_view()),
 
 ]

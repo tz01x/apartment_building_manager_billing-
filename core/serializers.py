@@ -45,9 +45,12 @@ class ResidentSerializer(serializers.ModelSerializer):
                 'extraCharge',]
 
 class ElectricityMeterReadingSerializer(serializers.ModelSerializer):
+    bill= serializers.FloatField(source='calculateBill',read_only=True)
     class Meta:
         model=ElectricityMeterReading
         fields='__all__'
+        
+
 
 
 class MonthlyPaidMeterReadingSerializer(serializers.ModelSerializer):
