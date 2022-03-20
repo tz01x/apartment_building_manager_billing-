@@ -116,6 +116,7 @@ class MonthlyPaid(models.Model):
     meter_reading=models.OneToOneField(ElectricityMeterReading, on_delete=models.SET_NULL,null=True,blank=True)
     rent_paid=models.FloatField()
     electricity_bill_paid=models.FloatField()
+    
     def save(self,*args, **kwargs):
         
         if self.meter_reading is None:
