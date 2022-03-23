@@ -13,3 +13,11 @@ STATICFILES_DIRS = [
     BASE_DIR/ "static" / "static_dir",
     BASE_DIR/ "frontend" / "build"/"static",
 ]
+
+
+MY_INSTALL_APP=[
+    'core',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+]
