@@ -19,5 +19,5 @@ MY_INSTALL_APP=[
     'core',
     'rest_framework',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt.token_blacklist',
 ]

@@ -114,3 +114,4 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from .rest_framework_settings import *
+from .cors_header import  *
