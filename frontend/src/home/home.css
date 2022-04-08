@@ -1,0 +1,10 @@
+@media only screen and (max-width: 600px) {
+  /*Big smartphones [0px -> 600px]*/
+  .homeTabLabel {
+    display: none;
+  }
+  .homeTabIcons svg {
+    width: 2.4em;
+    height: 2.4em;
+  }
+}
