@@ -54,10 +54,28 @@ class ResidentList(generics.ListAPIView):
     queryset = Resident.objects.all()
     serializer_class = ResidentSerializer
 
+class ResidentDetails(generics.RetrieveAPIView):
+    queryset = Resident.objects.all()
+    serializer_class = ResidentSerializer
+    lookup_field="slug"
+
 class ElectricityMeterReadingListAndCreateView(generics.ListCreateAPIView):
     queryset = ElectricityMeterReading.objects.all()
     serializer_class = ElectricityMeterReadingSerializer
 
-class MonthlyPaidMeterReadingList(generics.ListAPIView):
+class MonthlyPaidMeterReadingList(generics.ListCreateAPIView):
     queryset = MonthlyPaid.objects.all()
     serializer_class = MonthlyPaidMeterReadingSerializer
+
+class ResidentMonthlyPaidLog(generics.ListAPIView):
+    
+    serializer_class = MonthlyPaidMeterReadingSerializer
+
+    def get_queryset(self):
+        obj=get_object_or_404(Resident,slug=self.kwargs.get('slug'))
+        qs=MonthlyPaid.objects.filter(resident=obj).order_by('-created')
+        return qs
+    
+
+        
+

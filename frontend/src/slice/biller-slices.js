@@ -9,17 +9,38 @@ export const flatApiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
-    // The `getPosts` endpoint is a "query" operation that returns data
+  
     getFlats: builder.query({
-      // The URL for the request is '/fakeApi/posts'
+  
       query: () => "flat/",
     }),
-    getResident: builder.query({
-      // The URL for the request is '/fakeApi/posts'
+    getResidentList: builder.query({
+     
       query: () => "resident/",
+    }),
+    getResident: builder.query({
+   
+      query: (slug) => `resident/${slug}/`,
+    }),
+    getMonthlyRentLog:builder.mutation({
+      query:(slug)=>`monthly-paid-log/${slug}/`
+    }),
+    addElectricMeterReading: builder.mutation({
+      query:(body)=>({
+        url:'electricity-meter-reading/',
+        method:"POST",
+        body
+      })
+    }),
+    addMonthlyRentEntry: builder.mutation({
+      query:(body)=>({
+        url:'monthly-paid-meter-reading/',
+        method:"POST",
+        body
+      })
     }),
   }),
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetFlatsQuery, useGetResidentQuery } = flatApiSlice;
+export const { useGetFlatsQuery,useAddMonthlyRentEntryMutation, useGetMonthlyRentLogMutation,useGetResidentQuery,useGetResidentListQuery,useAddElectricMeterReadingMutation } = flatApiSlice;

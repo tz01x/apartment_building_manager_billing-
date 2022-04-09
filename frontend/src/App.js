@@ -19,6 +19,7 @@ import {
   Global,
 } from "@mantine/core";
 import CNav from "./component/nav/costomNav";
+import Profile from "./component/pages/profile/profile";
 
 function App() {
   const [opened, setOpened] = useState(false);
@@ -106,6 +107,7 @@ function App() {
         >
           <Routes>
             <Route path="login" element={<Login />}></Route>
+            <Route path="profile/:slug" element={<Profile/>}></Route>
             <Route path="" element={<Home />}></Route>
           </Routes>
         </AppShell>

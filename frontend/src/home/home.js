@@ -12,20 +12,22 @@ import {
 } from "@mantine/core";
 
 import { Home2, ScooterElectric, ReportMoney } from "tabler-icons-react";
-
+import {useNavigate} from 'react-router-dom'
 import { useEffect, useState } from "react";
-import { useGetResidentQuery } from "../slice/biller-slices";
+import { useGetResidentListQuery } from "../slice/biller-slices";
 import "./home.css";
 import MeterReading from "../component/meter-reading/meter-reading";
+import MonthlyRentEntry from "../component/monthly-rent-entry/monthly-rent-entry";
 
 export default function Home() {
   const theme = useMantineTheme();
-  const [cdata, setData] = useState({});
-
+ 
   const secondaryColor =
-    theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
-
-  const { data: fetchData, isLoading } = useGetResidentQuery();
+  theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
+  
+  const [cdata, setData] = useState({});
+  const navigate=useNavigate()
+  const { data: fetchData, isLoading } = useGetResidentListQuery();
 
   useEffect(() => {
     if (fetchData) {
@@ -40,19 +42,20 @@ export default function Home() {
         classNames={{ tabLabel: "homeTabLabel", tabIcon: "homeTabIcons" }}
       >
         <Tabs.Tab label="Residents" icon={<Home2 size={20} />}>
-          {residentList(secondaryColor, isLoading, cdata, theme)}
+          {residentList(secondaryColor, isLoading, cdata, theme,navigate)}
         </Tabs.Tab>
         <Tabs.Tab label="Meter Reading" icon={<ScooterElectric size={20} />}>
           <MeterReading />
         </Tabs.Tab>
         <Tabs.Tab label="Monthly Rent" icon={<ReportMoney size={20} />}>
-          Settings tab content
+          <MonthlyRentEntry/>
         </Tabs.Tab>
       </Tabs>
     </Container>
   );
 }
-function residentList(secondaryColor, isLoading, cdata, theme) {
+function residentList(secondaryColor, isLoading, cdata, theme,navigate) {
+  
   return (
     <section>
       <h1 style={{ color: secondaryColor }}>Resident List</h1>
@@ -62,7 +65,7 @@ function residentList(secondaryColor, isLoading, cdata, theme) {
       ) : (
         <Grid>
           {Object.keys(cdata).map((key) => {
-            const resident = cdata[key];
+            const {pictureUrl,name,slug,phone,flat} = cdata[key];
             return (
               <Grid.Col md={6} lg={3} key={key}>
                 <Card shadow="sm" p="lg">
@@ -74,8 +77,8 @@ function residentList(secondaryColor, isLoading, cdata, theme) {
                       color="cyan"
                       radius="xl"
                       size="lg"
-                      src={resident.pictureUrl}
-                      alt={resident.name}
+                      src={pictureUrl}
+                      alt={name}
                     ></Avatar>
 
                     <Text
@@ -85,15 +88,15 @@ function residentList(secondaryColor, isLoading, cdata, theme) {
                         fontSize: theme.fontSizes.ld,
                       }}
                     >
-                      {resident.name}
+                      {name}
                     </Text>
                   </Group>
                   <Text weight={400} style={{ color: secondaryColor }}>
                     <div>
-                      <strong>phone:</strong> {resident.phone}
+                      <strong>phone:</strong> {phone}
                     </div>
                     <div>
-                      <strong>flat:</strong> {resident.flat}
+                      <strong>flat:</strong> {flat}
                     </div>
                   </Text>
 
@@ -106,6 +109,7 @@ function residentList(secondaryColor, isLoading, cdata, theme) {
                     color="blue"
                     fullWidth
                     style={{ marginTop: 14 }}
+                    onClick={()=>{navigate(`/profile/${slug}`)}}
                   >
                     Profile
                   </Button>
