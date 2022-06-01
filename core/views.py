@@ -58,9 +58,30 @@ class ExtraChargeList(generics.ListAPIView):
     queryset = ExtraCharge.objects.all()
     serializer_class = ExtraChargeSerializer
 
-class ResidentList(generics.ListAPIView):
+class ResidentListCreateView(generics.ListCreateAPIView):
     queryset = Resident.objects.all()
     serializer_class = ResidentSerializer
+    
+    def post(self, request,*args,**kwargs):
+        data=request.data
+        rh=None
+        
+        if data.get('rent_history',0)!=0 :
+            rh=RentHistory(rent=data['rent_history'])
+        else:
+            return Response(data={"rent_history":"This field is required"},status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        rh.save()
+        data['rent_history']=[rh.id,]
+        data['extraCharge']=[]
+        serializer=ResidentCreateSerializer(data=data)
+        if(serializer.is_valid(raise_exception=False)):
+            
+            serializer.save()
+            return Response(data=serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            rh.delete()
+            return Response(data=serializer.errors,status=status.HTTP_406_NOT_ACCEPTABLE)
 
 class ResidentDetails(generics.RetrieveAPIView):
     queryset = Resident.objects.all()
@@ -70,6 +91,8 @@ class ResidentDetails(generics.RetrieveAPIView):
 class ElectricityMeterReadingListAndCreateView(generics.ListCreateAPIView):
     queryset = ElectricityMeterReading.objects.all()
     serializer_class = ElectricityMeterReadingSerializer
+
+    
 
 class MonthlyPaidMeterReadingList(generics.ListCreateAPIView):
     queryset = MonthlyPaid.objects.all()

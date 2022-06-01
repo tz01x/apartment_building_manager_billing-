@@ -4,13 +4,12 @@ import { ArrowLeft } from "tabler-icons-react";
 import moment from "moment";
 import {useNavigate} from 'react-router-dom'
 import DataEntry from "../../inputForm";
-import { API_BASE_URL } from "../../../constant";
-import { useGetFlatsQuery } from "../../../slice/biller-slices";
+import { useAddResidentMutation, useGetFlatsQuery } from "../../../slice/biller-slices";
 
 const initalFormData = {
   name: {
     value: "",
-    value_str() {
+    valueStr() {
       return this.value;
     },
     label: "Name",
@@ -19,7 +18,7 @@ const initalFormData = {
   },
   phone: {
     value: "",
-    value_str() {
+    valueStr() {
       return this.value;
     },
     label: "Phone Number",
@@ -28,7 +27,7 @@ const initalFormData = {
   },
   nid: {
     value:0,
-    value_str() {
+    valueStr() {
       return this.value;
     },
     label: "NID Card Number",
@@ -45,20 +44,19 @@ const initalFormData = {
     required: true,
   },
   flat: {
-    value: "",
+    value: null,
     type: "select",
     label: "flat Room",
     valueStr() {
       return this.value;
     },
-    data:[
-        {value:1,label:"A@"}
-    ],
+    dataSource:useGetFlatsQuery,
+    unpackItem:(item)=>{return {value:item.id,label:item.room_id}},
     required: true,
   },
-  rent: {
+  rent_history: {
     value:0,
-    value_str() {
+    valueStr() {
       return this.value;
     },
     label: "Rent",
@@ -72,19 +70,15 @@ const initalErrorText = {
   join: "",
   phone: "",
   nid: "",
+  rent_history:"",
+  flat:""
 };
 
 function AddUserPage() {
   const navigate=useNavigate();
-  const {data:flatData,isLoading}=useGetFlatsQuery();
-  useEffect(()=>{
-    if(flatData){
-      initalFormData.flat.data=[...Object.keys(flatData).map(k=>{
-        return {value:k,label:k}
-      })];
-      
-    }
-  },[isLoading])
+  const [addResident,{}]=useAddResidentMutation();
+
+
 
 
   return (
@@ -103,12 +97,14 @@ function AddUserPage() {
       <h1 className="text-center">Add New User</h1>
 
       <div className="container">
-        {isLoading?null:
+      
         <DataEntry
+          addData={addResident}
           initialData={initalFormData}
           errorTextInitial={initalErrorText}
+          successMessage="New Resident has been added"
         />
-        }
+        
 
       </div>
     </section>

@@ -44,6 +44,13 @@ export const flatApiSlice = createApi({
       query:()=>({
         url:"electricity-meter-reading/pdf"
       })
+    }),
+    addResident:builder.mutation({
+      query:(body)=>({
+        url:"resident/",
+        body,
+        method:"POST",
+      })
     })
   }),
 });
@@ -58,4 +65,5 @@ export const {
   useAddElectricMeterReadingMutation,
   useGetSlipPreviewMutation,
   useDownloadPdfMutation,
+  useAddResidentMutation,
 } = flatApiSlice;

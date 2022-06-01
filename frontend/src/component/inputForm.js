@@ -1,15 +1,25 @@
-import { NumberInput, Button, InputWrapper, Input, Select, NativeSelect } from "@mantine/core";
+import {
+  NumberInput,
+  Button,
+  InputWrapper,
+  Input,
+  Modal,
+  Alert,
+} from "@mantine/core";
+import { AlertCircle } from "tabler-icons-react";
 import { DatePicker } from "@mantine/dates";
 import { useState } from "react";
+import GenericSelectInput from "./genaric-select-input/genaric-select-input";
 
 import ResidentSelector from "./residient-selector/residient-selector";
 
-function DataEntry({ initialData, errorTextInitial, addData }) {
+function DataEntry({ initialData, errorTextInitial, addData,successMessage="New Resident has been added" }) {
   const [formData, setFormData] = useState({ ...initialData });
   const [errorText, setErrorText] = useState({ ...errorTextInitial });
+  const [openModal, setOpenModal] = useState(false);
 
   const handelForm = (name, value) => {
-    console.log(name,value)
+    console.log(name, value);
     setFormData((prev) => ({
       ...prev,
       [name]: { ...prev[name], value: value },
@@ -29,9 +39,10 @@ function DataEntry({ initialData, errorTextInitial, addData }) {
     });
     try {
       await addData(tempFormData).unwrap();
-
+      setOpenModal(true);
       clearFormData();
     } catch (error) {
+      console.log(error);
       Object.keys(error.data).forEach((key) => {
         if (key in errorText) {
           setErrorText((prev) => ({ ...prev, [key]: error.data[key] }));
@@ -53,7 +64,7 @@ function DataEntry({ initialData, errorTextInitial, addData }) {
         {Object.keys(formData).map((key) => {
           switch (formData[key].type) {
             case "select":
-              if (key=='resident'){
+              if (key == "resident") {
                 return (
                   <div className={`data_entry_${key} mt-4`} key={key}>
                     <ResidentSelector
@@ -64,20 +75,22 @@ function DataEntry({ initialData, errorTextInitial, addData }) {
                     />
                   </div>
                 );
-
-              }else{
+              } else {
                 return (
                   <div className={`data_entry_${key} mt-4`} key={key}>
-                    <NativeSelect 
-                      data={formData[key].data}  
-                      onChange={(e)=>{handelForm(key,e.target.value)}}
+                    <GenericSelectInput
+                      dataSource={formData[key].dataSource}
+                      handelForm={handelForm}
+                      name={key}
+                      unpackItem={formData[key].unpackItem}
                       value={formData[key].value}
                       label={formData[key].label}
-                      />
+                      error={errorText[key]}
+                    />
                   </div>
                 );
               }
-              
+
             case "date":
               return (
                 <div className={`data_entry_${key} mt-4`} key={key}>
@@ -113,6 +126,9 @@ function DataEntry({ initialData, errorTextInitial, addData }) {
                           ? formData[key].placeholder
                           : ""
                       }
+                      value={formData[key].value}
+                      radius="md"
+                      size="lg"
                     />
                   </InputWrapper>
                 </div>
@@ -182,6 +198,31 @@ function DataEntry({ initialData, errorTextInitial, addData }) {
             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
           </svg>
         </Button>
+
+        <Modal
+          transition="fade"
+          transitionDuration={600}
+          transitionTimingFunction="ease"
+          overlayOpacity={0.55}
+          overlayBlur={3}
+          withCloseButton={false}
+          opened={openModal}
+          onClose={() => {
+            setOpenModal(false);
+          }}
+          padding={0}
+        >
+          <Alert
+           
+            title="Submitted"
+            color="teal"
+            radius="xs"
+            variant="outline"
+            style={{padding:"2em"}}
+          >
+            {successMessage}
+          </Alert>
+        </Modal>
       </div>
     );
   }

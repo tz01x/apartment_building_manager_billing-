@@ -24,14 +24,7 @@ const initialData = {
     required:true
 
   },
-  date: {
-    value: new Date(),
-    type: "date",
-    label: "তারিখ",
-    valueStr() {
-      return moment(this.value).format("YYYY-MM-DD");
-    },
-  },
+  
   previous_meterReading:{
     value: 0,
     type: "number",
@@ -43,7 +36,23 @@ const initialData = {
     description:"যদি নির্বাচিত ভাড়াটেটির কোনো পূর্ববর্তী মিটার রিডিং না থাকে তবে আপনি এখানে মান সন্নিবেশ করতে পারেন অন্যথায় এটি শূন্য হিসাবে ছেড়ে দিন"
     // if the selected tenant has no previous meter reading only then you can insert the value here  otherwise leave it as zero 
 
-  }
+  },
+  unit:{
+    value:8,
+    type:"number",
+    label:"Unit",
+    valueStr(){
+      return this.value;
+    },
+  },
+  date: {
+    value: new Date(),
+    type: "date",
+    label: "তারিখ",
+    valueStr() {
+      return moment(this.value).format("YYYY-MM-DD");
+    },
+  },
 };
 
 const errorTextInitial = {

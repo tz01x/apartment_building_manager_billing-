@@ -30,7 +30,7 @@ class ExtraCharge(models.Model):
     title = models.CharField(max_length=20)
     title_bn = models.CharField(max_length=20)
     amount = models.FloatField()
-    def __str__(self) -> str:
+    def __str__(self) -> str:           
         return self.title
 
 

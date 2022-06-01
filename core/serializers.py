@@ -19,8 +19,8 @@ class FlatSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Flat
-        fields = ['room_id', 'has_sublate', 'sublate', 'description']
-        list_serializer_class = DictSerializerWithCostomID
+        fields = ['id','room_id', 'has_sublate', 'sublate', 'description']
+        
 
 
 class ExtraChargeSerializer(serializers.ModelSerializer):
@@ -29,6 +29,10 @@ class ExtraChargeSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'amount']
         list_serializer_class = DictSerializer
 
+class ResidentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Resident
+        fields="__all__"
 
 class ResidentSerializer(serializers.ModelSerializer):
     flat = FlatRoomIdSerializer(read_only=True)
