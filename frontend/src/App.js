@@ -1,9 +1,5 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
-import Login from "./component/login/login";
-import Home from "./home/home";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import "./App.css";
+import { useState } from "react";
+import { Routes, Route, useNavigate ,Navigate} from "react-router-dom";
 import { Building } from "tabler-icons-react";
 import {
   AppShell,
@@ -18,9 +14,16 @@ import {
   useMantineColorScheme,
   Global,
 } from "@mantine/core";
+
+import "./App.css";
+import Login from "./component/login/login";
+import Home from "./home/home";
 import CNav from "./component/nav/costomNav";
 import Profile from "./component/pages/profile/profile";
+import AddUserPage from "./component/pages/add-user-page/add-user-page";
 
+// 
+//
 function App() {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
@@ -29,16 +32,10 @@ function App() {
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
-  const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  
+  
 
-  useEffect(() => {
-    if (user.refresh) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  }, [user]);
+
 
   return (
     <ColorSchemeProvider
@@ -52,7 +49,7 @@ function App() {
               backgroundColor:
                 theme.colorScheme === "dark"
                   ? theme.colors.dark[5]
-                  : theme.colors.indigo[2],
+                  : "white"
             };
           }}
           // navbarOffsetBreakpoint controls when navbar should no longer be offset with padding-left
@@ -106,9 +103,12 @@ function App() {
           }
         >
           <Routes>
-            <Route path="login" element={<Login />}></Route>
+            <Route path="" element={<Navigate to="/login"></Navigate>}></Route>
             <Route path="profile/:slug" element={<Profile/>}></Route>
-            <Route path="" element={<Home />}></Route>
+            <Route path="add-user" element={<AddUserPage />}></Route>
+            <Route path="home" element={<Home />}></Route>
+            <Route path="login" element={<Login />}></Route>
+            
           </Routes>
         </AppShell>
       </MantineProvider>

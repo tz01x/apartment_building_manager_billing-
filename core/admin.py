@@ -4,7 +4,15 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(Flat)
+admin.site.register(RentHistory)
 admin.site.register(ExtraCharge)
-admin.site.register(Resident)
-admin.site.register(ElectricityMeterReading)
+
+@admin.register(Resident)
+class ResidentAdmin(admin.ModelAdmin):
+    readonly_fields=['rent']
+    
+@admin.register(ElectricityMeterReading)
+class ElectricityMeterReadingAdmin(admin.ModelAdmin):
+    readonly_fields=['calculateBill']
+ 
 admin.site.register(MonthlyPaid)

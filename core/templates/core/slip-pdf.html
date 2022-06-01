@@ -1,0 +1,229 @@
+{%load core_tags%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+
+    <title>my pdf</title>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/static/css/bs.css" media="screen" />
+
+    <style>
+        @font-face {
+            font-family: SolaimanLipi;
+            font-style: normal;
+            font-weight: normal;
+            src: url('http://127.0.0.1:8000/static/fonts/SolaimanLipi.eot');
+            src: url('http://127.0.0.1:8000/static/fonts/SolaimanLipi.woff') format('woff'), url('http://127.0.0.1:8000/static/fonts/SolaimanLipi.ttf') format('truetype');
+        }
+    </style>
+
+
+    <!-- bootstrap grid css start -->
+    <style>
+       
+
+        * {
+            -webkit-box-sizing: border-box;
+        }
+
+        .pdfPreview {
+            width: 100%;
+
+            margin: auto;
+            border: 1px solid gainsboro;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+        }
+
+        .montly_slip {
+            width: 300px;
+            font-family: 'SolaimanLipi';
+            background-color: white;
+            font-size: 12px;
+            color: black;
+            padding: 20px;
+            /* width: 180px; */
+            border: 1px solid gray;
+        }
+
+        .border-bottom-dotted {
+            border-bottom: 2px solid black;
+            border-bottom-style: dotted;
+            margin-bottom: 3px;
+        }
+
+
+
+
+        .col {
+            padding: 10px;
+
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        .col-6 {
+            -webkit-box-flex: 6;
+            -ms-flex-positive: 6;
+            flex-grow: 6;
+
+        }
+
+        .col-4 {
+            -webkit-box-flex: 4;
+            -ms-flex-positive: 4;
+            flex-grow: 4;
+
+        }
+
+        .text-align-end {
+            text-align: end;
+        }
+
+
+
+        .slip-head{
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                    flex-direction: row;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;  
+            margin-bottom: 6px;  
+        }
+
+        
+        
+        .slip-head > div {
+            width: 50%;
+        }    
+
+        .brakeWord{
+            word-break: break-all
+        }
+        .mr-5 {
+            margin-right: 15px;
+        }
+    </style>
+    <!-- bootstrap grid css end -->
+</head>
+
+<body>
+
+
+    <div class="">
+
+
+       
+        
+        {%for objgrp in objs%}
+        <div class=" pdfPreview ">
+            
+
+            {%for obj in objgrp%}
+
+            <div class="col">
+
+                <div class="montly_slip">
+                    <div class="">
+                        <div class="slip-head">
+                            <div class="">
+                                নাম : 
+                                <span>
+
+                                    <strong class="brakeWord"> {{obj.resident.name}}</strong>
+                                </span>
+                            </div>
+                            <!-- <span>তারিখ : 15/8/2020</span> -->
+                            <div class="text-align-end">মাস: &nbsp; &nbsp;<strong>{{obj.date|date_eng_to_ban}}</strong></div>
+                        </div>
+                        <!-- <div class="">
+                            মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+                        </div> -->
+                    </div>
+                    
+                    <hr>
+                    </hr>
+                    <div class="border-bottom-dotted">
+                        <div class="row">
+                            <div class="col-6">বর্তমান রেডিং</div>
+
+                            <div class="col-6 text-align-end">{{obj.current_meterReading|num_eng_to_bn}} ইউনিট</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">পূর্ববর্তী রেডিং</div>
+
+                            <div class="col-6 text-align-end">{{obj.previous_meterReading|num_eng_to_bn}} ইউনিট</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">ব্যবহার</div>
+
+                            <div class="col-6 text-align-end">{{obj.current_meterReading|sub:obj.previous_meterReading|num_eng_to_bn  }} ইউনিট</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">এক ইউনিট খরচ</div>
+    
+                            <div class="col-4 text-align-end">{{obj.unit|num_eng_to_bn}} টাকা</div>
+                        </div>
+                    </div>
+                    {%with extra=obj.resident.getExtraCharges%}
+                    <div class="border-bottom-dotted">
+                        <div class="row">
+                            <div class="col-6">টাকার পরিমাণ</div>
+                            <div class="col-6 text-align-end">{{obj.calculateBill|num_eng_to_bn}} টাকা</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">বাড়ি ভাড়া</div>
+                            <div class="col-6 text-align-end">{{obj.resident.rent|num_eng_to_bn}} টাকা</div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-6">অতিরিক্ত খরচ</div>
+                            <div class="col-6 text-align-end">{{extra|num_eng_to_bn}} টাকা</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">মোট টাকা</div>
+                        <div class="col-6 text-align-end">{{obj.calculateBill|add:obj.resident.rent|add:extra|num_eng_to_bn}} টাকা</div>
+                    </div>
+                    {%endwith%}
+                </div>
+
+            </div>
+
+            {%endfor%}
+        </div>
+       
+        {%if forloop.counter|mod:5 %}
+        <div>
+
+            <p style="page-break-before: always"></p>
+            
+        </div>
+        {%endif%}
+
+        {%endfor%}
+
+
+
+
+    </div>
+
+</body>
+
+</html>

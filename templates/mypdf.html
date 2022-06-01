@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+   
+	
+    <title>my pdf</title>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/static/css/bs.css" media="screen" />
+    
+    <style>
+
+@font-face {
+    font-family: SolaimanLipi;
+    font-style: normal;
+    font-weight: normal;
+    src: url('http://127.0.0.1:8000/static/fonts/SolaimanLipi.eot');
+    src: url('http://127.0.0.1:8000/static/fonts/SolaimanLipi.woff') format('woff'),url('http://127.0.0.1:8000/static/fonts/SolaimanLipi.ttf') format('truetype');
+}
+
+    
+    </style>
+<!-- bootstrap grid css start -->
+    <style>
+
+    </style>
+    <!-- bootstrap grid css end -->
+</head>
+
+<body>
+
+
+	<div class="">
+		<style>
+			.montly_slip {
+                font-family: 'SolaimanLipi';
+				background-color: white;
+				font-size: 11px;
+				color: black;
+				padding:0 12px;
+			}
+
+			.border-bottom-dotted {
+				border-bottom: 2px solid black;
+				border-bottom-style: dotted;
+				margin-bottom: 3px;
+			}
+
+
+			.pdfPreview {
+				row-gap: 12px;
+			}
+		</style>
+		<div class=" pdfPreview row">
+            <h1>hello</h1>
+
+            
+			
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+			<div class="col-4">
+
+				<div class="montly_slip">
+					<div class="">
+						<div class="d-flex justify-content-between">
+							<div>
+								নাম : &nbsp; &nbsp;<strong>masuk</strong>
+							</div>
+							<div>তারিখ : 15/8/2020</div>
+						</div>
+						<div class="">
+							মাস: &nbsp; &nbsp;<strong>এপ্রিল</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">এক ইউনিট খরচ</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+					<hr>
+					</hr>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">বর্তমান রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">পূর্ববর্তী রেডিং</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+						<div class="row">
+							<div class="col-6">ব্যবহার</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ ইউনিট</div>
+						</div>
+					</div>
+					<div class="border-bottom-dotted">
+						<div class="row">
+							<div class="col-6">টাকার পরিমাণ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row">
+							<div class="col-6">বাড়ি ভাড়া</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+						<div class="row ">
+							<div class="col-6">অতিরিক্ত খরচ</div>
+							<div class="col-3">=</div>
+							<div class="col-3">৮ টাকা</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">মোট টাকা</div>
+						<div class="col-3">=</div>
+						<div class="col-3">৮ টাকা</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+
+		</div>
+
+        
+
+	</div>
+
+</body>
+
+</html>

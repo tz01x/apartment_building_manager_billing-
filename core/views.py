@@ -1,16 +1,24 @@
+from datetime import date
+
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.views.generic import TemplateView
 
-# Create your views here.
 
-
-from rest_framework import generics
+from rest_framework import generics,views
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
+
+from wkhtmltopdf.views import PDFTemplateView
+
 from .models import *
 from .serializers import *
+from .utils import make2d,generatePdfContext
+
 
 class FlatList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -75,7 +83,40 @@ class ResidentMonthlyPaidLog(generics.ListAPIView):
         obj=get_object_or_404(Resident,slug=self.kwargs.get('slug'))
         qs=MonthlyPaid.objects.filter(resident=obj).order_by('-created')
         return qs
-    
 
+
+
+
+class GenerateSlip(PDFTemplateView):
+    template_name = "core/slip-pdf.html"
+    filename = "slips.pdf"
+    cmd_options = {
+        'margin-top': "2mm",
+        'margin-left': "2mm",
+        'margin-right': "2mm",
+        "footer-center":'[page]/[toPage]',
+        "footer-left": date.today().isoformat()
+    }
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context.update(generatePdfContext(self.request))
+        return context
+
+class PdfPreview(generics.ListAPIView):
+    def get(self,request,*args,**kwargs):
         
+        template_name = "core/slip-pdf.html"
+        context=generatePdfContext(request)
+        html_str=render_to_string(template_name,context=context)
+        
+        return JsonResponse({'body':html_str}, status=200)
+
+class PdfDownload(generics.ListAPIView):
+    def get(self,request,*args,**kwargs):
+        
+        return GenerateSlip.as_view()(request,*args,**kwargs)
+
+
+
 

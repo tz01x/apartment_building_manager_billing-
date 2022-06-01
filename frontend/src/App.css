@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+
+.coustomTable{
+  overflow-x: scroll;
+}
+
+.border-bottom-dotted{
+  border-bottom: 2px solid black;
+  border-bottom-style: dotted;
+  margin-bottom: 3px;
+}
+
+.pdfPreview{
+  row-gap: 12px;
+}
+
+.montly_slip{
+  background-color: white;
+  font-size: 11px;
+  color: black;
+  padding: 12px;
+}

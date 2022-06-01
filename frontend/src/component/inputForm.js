@@ -1,17 +1,15 @@
-import { NumberInput, Button } from "@mantine/core";
+import { NumberInput, Button, InputWrapper, Input, Select, NativeSelect } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useState } from "react";
 
 import ResidentSelector from "./residient-selector/residient-selector";
 
-function DataEntry({initialData,errorTextInitial,addData}) {
-
-
+function DataEntry({ initialData, errorTextInitial, addData }) {
   const [formData, setFormData] = useState({ ...initialData });
   const [errorText, setErrorText] = useState({ ...errorTextInitial });
 
-
   const handelForm = (name, value) => {
+    console.log(name,value)
     setFormData((prev) => ({
       ...prev,
       [name]: { ...prev[name], value: value },
@@ -42,13 +40,12 @@ function DataEntry({initialData,errorTextInitial,addData}) {
     }
   };
 
-
   return (
     <div>
-        {formFields()}
-        {buttonGrp()}
+      {formFields()}
+      {buttonGrp()}
     </div>
-  )
+  );
 
   function formFields() {
     return (
@@ -56,42 +53,87 @@ function DataEntry({initialData,errorTextInitial,addData}) {
         {Object.keys(formData).map((key) => {
           switch (formData[key].type) {
             case "select":
-              return (
-                <ResidentSelector
-                  handelForm={handelForm}
-                  value={formData[key].value}
-                  errorText={errorText[key]}
-                />
-              );
+              if (key=='resident'){
+                return (
+                  <div className={`data_entry_${key} mt-4`} key={key}>
+                    <ResidentSelector
+                      handelForm={handelForm}
+                      value={formData[key].value}
+                      errorText={errorText[key]}
+                      label={formData[key].label}
+                    />
+                  </div>
+                );
+
+              }else{
+                return (
+                  <div className={`data_entry_${key} mt-4`} key={key}>
+                    <NativeSelect 
+                      data={formData[key].data}  
+                      onChange={(e)=>{handelForm(key,e.target.value)}}
+                      value={formData[key].value}
+                      label={formData[key].label}
+                      />
+                  </div>
+                );
+              }
+              
             case "date":
               return (
-                <DatePicker
-                  error={errorText[key]}
-                  name={key}
-                  locale="bn"
-                  radius="md"
-                  size="lg"
-                  placeholder="date"
-                  label={formData[key].label}
-                  defaultValue={formData[key].value}
-                  value={formData[key].value}
-                  onChange={(e) => handelForm(key, e)}
-                />
+                <div className={`data_entry_${key} mt-4`} key={key}>
+                  <DatePicker
+                    error={errorText[key]}
+                    name={key}
+                    locale="bn"
+                    radius="md"
+                    size="lg"
+                    placeholder="date"
+                    label={formData[key].label}
+                    defaultValue={formData[key].value}
+                    value={formData[key].value}
+                    onChange={(e) => handelForm(key, e)}
+                  />
+                </div>
+              );
+            case "text":
+              return (
+                <div className={`data_entry_${key} mt-4`} key={key}>
+                  <InputWrapper
+                    id={`data_entry_${key}`}
+                    required={formData[key].required}
+                    label={formData[key].label}
+                    description={formData[key].description}
+                    error={errorText[key]}
+                  >
+                    <Input
+                      id={`data_entry_${key}`}
+                      onChange={(e) => handelForm(key, e.target.value)}
+                      placeholder={
+                        formData[key].placeholder
+                          ? formData[key].placeholder
+                          : ""
+                      }
+                    />
+                  </InputWrapper>
+                </div>
               );
 
             default:
               return (
-                <NumberInput
-                  error={errorText[key]}
-                  label={formData[key].label}
-                  radius="md"
-                  size="lg"
-                  required
-                  name={key}
-                  hideControls
-                  onChange={(e) => handelForm(key, e)}
-                  value={formData[key].value}
-                />
+                <div className={`data_entry_${key} mt-4`} key={key}>
+                  <NumberInput
+                    error={errorText[key]}
+                    label={formData[key].label}
+                    radius="md"
+                    size="lg"
+                    required={!!formData[key].required}
+                    name={key}
+                    hideControls
+                    onChange={(e) => handelForm(key, e)}
+                    value={formData[key].value}
+                    description={formData[key].description}
+                  />
+                </div>
               );
           }
         })}
@@ -145,4 +187,4 @@ function DataEntry({initialData,errorTextInitial,addData}) {
   }
 }
 
-export default DataEntry
+export default DataEntry;

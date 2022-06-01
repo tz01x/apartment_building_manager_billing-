@@ -1,7 +1,8 @@
 import { Container, useMantineTheme, Table } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Avatar } from "@mantine/core";
+import { useParams,useNavigate } from "react-router-dom";
+import { Avatar, Button } from "@mantine/core";
+
 import moment from "moment";
 import {
   Phone,
@@ -10,6 +11,7 @@ import {
   CircleOff,
   ReportMoney,
   AddressBook,
+  ArrowLeft,
 } from "tabler-icons-react";
 import {
   useGetMonthlyRentLogMutation,
@@ -18,6 +20,7 @@ import {
 
 function Profile() {
   const params = useParams();
+  const navigation=useNavigate()
 
   const { data, isLoading } = useGetResidentQuery(params.slug);
   const [rows, setRows] = useState([]);
@@ -30,24 +33,26 @@ function Profile() {
   const [getMonthlyRentLog, { isLoading: isRentLogLoading }] =
     useGetMonthlyRentLogMutation();
 
-  const fetchData= async ()=>{
+  const fetchData = async () => {
     const rentLog = await getMonthlyRentLog(data.slug);
 
     if (rentLog.error) return;
 
     const tempRow = Object.values(rentLog.data).map((element) => (
       <tr key={element.id}>
-        <td>{moment(new Date(element.created)).format("ll")}</td>
+        <td>{moment(new Date(element.created)).format("d MMMM, YYYY")}</td>
         <td>{moment(new Date(element.date)).format("MMMM  YYYY")}</td>
-        <td>{element.rent_paid} taka (BDT)</td>
-        <td>{element.electricity_bill_paid} taka (BDT)</td>
+        <td>{element.rent_paid} </td>
+        <td>{element.electricity_bill_paid} (BDT)</td>
+        <td>{element.rent_for_this_month} (BDT)</td>
+        <td>{element.calculated_bill} (BDT)</td>
       </tr>
     ));
 
     setRows([...tempRow]);
-  }
+  };
 
-  useEffect( () => {
+  useEffect(() => {
     if (data) {
       fetchData();
     }
@@ -55,6 +60,21 @@ function Profile() {
 
   return (
     <Container>
+      <Button
+        variant="subtle"
+        color="dark"
+        size="md"
+        title="back"
+        aria-label="back"
+        onClick={()=>{
+          navigation('/')
+        }}
+      >
+        <ArrowLeft size={20} strokeWidth={2} color={"black"} />
+      </Button>
+
+      <hr></hr>
+
       {!isLoading && basicInfo(secondaryColor, data)}
 
       <div className="mt-5 pt-4" style={{ color: secondaryColor }}>
@@ -64,7 +84,7 @@ function Profile() {
             {Object.values(data.extraCharge).map((item) => {
               return (
                 <li key={item.id}>
-                  {item.title} : {item.amount} taka (BDT)
+                  {item.title} : {item.amount} (BDT)
                 </li>
               );
             })}
@@ -75,18 +95,21 @@ function Profile() {
       <div className="mt-5 pt-4" style={{ color: secondaryColor }}>
         <h3>Monthly Rent Log</h3>
         <hr></hr>
-
-        <Table striped highlightOnHover verticalSpacing="sm" fontSize="md">
-          <thead>
-            <tr>
-              <th>paid in</th>
-              <th>paid for</th>
-              <th>Rent</th>
-              <th>electricity build</th>
-            </tr>
-          </thead>
-          {!isRentLogLoading && <tbody>{rows}</tbody>}
-        </Table>
+        <div className="coustomTable">
+          <Table striped highlightOnHover verticalSpacing="sm" fontSize="sm">
+            <thead>
+              <tr>
+                <th>paid in</th>
+                <th>paid for</th>
+                <th>paid Rent (BDT)</th>
+                <th>paid electricity build (BDT)</th>
+                <th>Actual Rent (BDT)</th>
+                <th>Actual electricity build (BDT)</th>
+              </tr>
+            </thead>
+            {!isRentLogLoading && <tbody>{rows}</tbody>}
+          </Table>
+        </div>
       </div>
     </Container>
   );
@@ -130,7 +153,7 @@ function basicInfo(secondaryColor, data) {
           <div className="col-sm-4">
             <span className="d-flex align-items-center gap-1 mt-2 ">
               <ReportMoney size={20} strokeWidth={1.5} color={"#4040bf"} />{" "}
-              <strong>{data.rent} taka (BDT)</strong>(per month)
+              <strong>{data.rent} taka</strong>(per month)
             </span>
 
             <span className="d-flex align-items-center gap-1 mt-2">

@@ -26,14 +26,14 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = MY_INSTALL_APP + [
+INSTALLED_APPS =  [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+]+MY_INSTALL_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,7 +50,7 @@ ROOT_URLCONF = 'logbill.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,3 +115,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from .rest_framework_settings import *
 from .cors_header import  *
+

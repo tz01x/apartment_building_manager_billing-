@@ -4,6 +4,7 @@ from .views import (FlatList,FlatDetails,addSublate,removeSublate,ExtraChargeLis
                     ElectricityMeterReadingListAndCreateView,
                     MonthlyPaidMeterReadingList,
                     ResidentMonthlyPaidLog,
+                    PdfDownload,PdfPreview,GenerateSlip
                     )
                     
 urlpatterns = [
@@ -15,6 +16,8 @@ urlpatterns = [
     path('resident/',ResidentList.as_view()),
     path('resident/<str:slug>/',ResidentDetails.as_view()),
     path('electricity-meter-reading/',ElectricityMeterReadingListAndCreateView.as_view()),
+    path('electricity-meter-reading/pdf/',PdfDownload.as_view()),
+    path('electricity-meter-reading/pdf/preview/',PdfPreview.as_view()),
     path('monthly-paid-meter-reading/',MonthlyPaidMeterReadingList.as_view()),
     path('monthly-paid-log/<str:slug>/',ResidentMonthlyPaidLog.as_view()),
 

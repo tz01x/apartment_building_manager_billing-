@@ -1,7 +1,7 @@
 import { NativeSelect } from "@mantine/core";
 import { useGetResidentListQuery } from "../../slice/biller-slices";
 
-const ResidentSelector = ({ handelForm, errorText, value }) => {
+const ResidentSelector = ({ handelForm, errorText, value,label }) => {
   const { data, isLoading } = useGetResidentListQuery();
 
   return (
@@ -13,7 +13,7 @@ const ResidentSelector = ({ handelForm, errorText, value }) => {
             label: item.name,
           }))}
           placeholder="Pick one"
-          label="Resident"
+          label={label}
           description="This is anonymous"
           radius="md"
           size="lg"

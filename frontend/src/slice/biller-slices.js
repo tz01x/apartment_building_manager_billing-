@@ -9,38 +9,53 @@ export const flatApiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
-  
     getFlats: builder.query({
-  
       query: () => "flat/",
     }),
     getResidentList: builder.query({
-     
       query: () => "resident/",
     }),
     getResident: builder.query({
-   
       query: (slug) => `resident/${slug}/`,
     }),
-    getMonthlyRentLog:builder.mutation({
-      query:(slug)=>`monthly-paid-log/${slug}/`
+    getMonthlyRentLog: builder.mutation({
+      query: (slug) => `monthly-paid-log/${slug}/`,
     }),
     addElectricMeterReading: builder.mutation({
-      query:(body)=>({
-        url:'electricity-meter-reading/',
-        method:"POST",
-        body
-      })
+      query: (body) => ({
+        url: "electricity-meter-reading/",
+        method: "POST",
+        body,
+      }),
     }),
     addMonthlyRentEntry: builder.mutation({
-      query:(body)=>({
-        url:'monthly-paid-meter-reading/',
-        method:"POST",
-        body
-      })
+      query: (body) => ({
+        url: "monthly-paid-meter-reading/",
+        method: "POST",
+        body,
+      }),
     }),
+    getSlipPreview: builder.mutation({
+      query: (date) => ({
+        url: "electricity-meter-reading/pdf/preview/?date="+date,
+      }),
+    }),
+    downloadPdf:builder.mutation({
+      query:()=>({
+        url:"electricity-meter-reading/pdf"
+      })
+    })
   }),
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetFlatsQuery,useAddMonthlyRentEntryMutation, useGetMonthlyRentLogMutation,useGetResidentQuery,useGetResidentListQuery,useAddElectricMeterReadingMutation } = flatApiSlice;
+export const {
+  useGetFlatsQuery,
+  useAddMonthlyRentEntryMutation,
+  useGetMonthlyRentLogMutation,
+  useGetResidentQuery,
+  useGetResidentListQuery,
+  useAddElectricMeterReadingMutation,
+  useGetSlipPreviewMutation,
+  useDownloadPdfMutation,
+} = flatApiSlice;

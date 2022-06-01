@@ -88,6 +88,7 @@ export const userSlice = createSlice({
     loggedOut: (state) => {
       state.access = "";
       state.refresh = "";
+      window.location.assign("/");
     },
     refreshCurrentToken: (state, action) => {},
   },

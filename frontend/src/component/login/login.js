@@ -1,17 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useState ,useEffect} from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   InputWrapper,
   Input,
   PasswordInput,
   Button,
   Container,
+  Alert,
 } from "@mantine/core";
-import { Alert } from "@mantine/core";
 import { AlertCircle } from "tabler-icons-react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+
 import { userLogin } from "../../slice/user-slices";
-import { useNavigate } from "react-router-dom";
+
 const initialFrom = {
   username: "",
   password: "",
@@ -22,6 +24,7 @@ const Login = () => {
   const [fromValue, setFormValue] = useState(initialFrom);
   const [fromError, setFromError] = useState(initialFrom);
   const [showAlert, setShowAlert] = useState(false);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const onChangeHandler = (e) => {
@@ -51,6 +54,14 @@ const Login = () => {
         setShowAlert(true);
       });
   };
+
+
+    useEffect(() => {
+      // console.log(user.access);
+    if (user.access!=="") {
+      navigate("/home");
+    } 
+  }, [user]);
 
   return (
     <Container size="xs">

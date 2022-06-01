@@ -20,4 +20,7 @@ MY_INSTALL_APP=[
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'wkhtmltopdf',
 ]
+
+WKHTMLTOPDF_CMD="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"

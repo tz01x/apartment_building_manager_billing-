@@ -7,27 +7,43 @@ const initialData = {
   resident: {
     value: "",
     type: "select",
-    label: "Residents",
+    label: "ভাড়াটে/Tenant",
+    
     valueStr() {
       return this.value;
     },
+    required:true
   },
   current_meterReading: {
     value: 0,
     type: "number",
-    label: "Meter Reading",
+    label: "বর্তমান রেডিং",
     valueStr() {
       return this.value;
     },
+    required:true
+
   },
   date: {
     value: new Date(),
     type: "date",
-    label: "Date",
+    label: "তারিখ",
     valueStr() {
       return moment(this.value).format("YYYY-MM-DD");
     },
   },
+  previous_meterReading:{
+    value: 0,
+    type: "number",
+    label: "পূর্ববর্তী রেডিং",
+    valueStr() {
+      return this.value;
+    },
+    required:false,
+    description:"যদি নির্বাচিত ভাড়াটেটির কোনো পূর্ববর্তী মিটার রিডিং না থাকে তবে আপনি এখানে মান সন্নিবেশ করতে পারেন অন্যথায় এটি শূন্য হিসাবে ছেড়ে দিন"
+    // if the selected tenant has no previous meter reading only then you can insert the value here  otherwise leave it as zero 
+
+  }
 };
 
 const errorTextInitial = {
@@ -47,7 +63,11 @@ const MeterReading = () => {
 
   return (
     <section>
-      <h1 style={{ color: secondaryColor }}> Electricity meter reading form</h1>
+      <h1 style={{ color: secondaryColor }}> 
+      {/* Electricity meter reading form */}
+      বিদ্যুৎ মিটার রিডিং ফর্ম
+      
+      </h1>
       <div className="mt-5">
         <DataEntry
           initialData={initialData}
