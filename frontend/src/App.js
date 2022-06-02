@@ -21,6 +21,7 @@ import Home from "./home/home";
 import CNav from "./component/nav/costomNav";
 import Profile from "./component/pages/profile/profile";
 import AddUserPage from "./component/pages/add-user-page/add-user-page";
+import UpdateUserProfile from "./component/pages/update-user-profile-page/update-user-profile";
 
 // 
 //
@@ -104,6 +105,7 @@ function App() {
         >
           <Routes>
             <Route path="" element={<Navigate to="/login"></Navigate>}></Route>
+            <Route path="profile/update/:slug" element={<UpdateUserProfile/>}></Route>
             <Route path="profile/:slug" element={<Profile/>}></Route>
             <Route path="add-user" element={<AddUserPage />}></Route>
             <Route path="home" element={<Home />}></Route>

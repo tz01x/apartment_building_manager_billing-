@@ -68,7 +68,7 @@ function residentList(secondaryColor, isLoading, cdata, theme, navigate) {
   return (
     <section>
       <div className="d-flex justify-content-between">
-        <h1 style={{ color: secondaryColor }}>Resident List</h1>
+        <h1 style={{ color: secondaryColor }}>ভাড়াটে/Tenant  List</h1>
         <Button color="cyan" title="add more user" onClick={()=>{
           navigate('/add-user');
 
@@ -114,7 +114,7 @@ function residentList(secondaryColor, isLoading, cdata, theme, navigate) {
                       <strong>phone:</strong> {phone}
                     </div>
                     <div>
-                      <strong>flat:</strong> {flat}
+                      <strong>flat:</strong> {flat.room_id}
                     </div>
                   </Text>
 

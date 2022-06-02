@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 
 
-from rest_framework import generics,views
+from rest_framework import generics,mixins
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -67,26 +67,54 @@ class ResidentListCreateView(generics.ListCreateAPIView):
         rh=None
         
         if data.get('rent_history',0)!=0 :
-            rh=RentHistory(rent=data['rent_history'])
+            rh=RentHistory.objects.create(rent=data['rent_history'])
         else:
             return Response(data={"rent_history":"This field is required"},status=status.HTTP_406_NOT_ACCEPTABLE)
 
         rh.save()
         data['rent_history']=[rh.id,]
-        data['extraCharge']=[]
+        
+        data['currently_staying']=True
         serializer=ResidentCreateSerializer(data=data)
         if(serializer.is_valid(raise_exception=False)):
             
             serializer.save()
             return Response(data=serializer.data,status=status.HTTP_201_CREATED)
         else:
+            
             rh.delete()
+            
             return Response(data=serializer.errors,status=status.HTTP_406_NOT_ACCEPTABLE)
 
-class ResidentDetails(generics.RetrieveAPIView):
+class ResidentDetails(generics.RetrieveUpdateAPIView):
     queryset = Resident.objects.all()
     serializer_class = ResidentSerializer
     lookup_field="slug"
+
+    def update(self, request, *args, **kwargs):
+        
+        data=request.data
+        rh=None
+        print(data)
+        if data.get('rent_history',0)!=0 :
+            rh=RentHistory.objects.create(rent=data['rent_history'])
+        else:
+            return Response(data={"rent_history":"This field is required"},status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        rh.save()
+        data['rent_history']=[rh.id,]
+        print(self.get_object())
+        # data['currently_staying']=True
+        serializer=ResidentCreateSerializer(instance=self.get_object(),data=data)
+        if(serializer.is_valid(raise_exception=False)):
+            
+            serializer.save()
+            return Response(data=serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            
+            rh.delete()
+        
+            return Response(data=serializer.errors,status=status.HTTP_406_NOT_ACCEPTABLE)
 
 class ElectricityMeterReadingListAndCreateView(generics.ListCreateAPIView):
     queryset = ElectricityMeterReading.objects.all()
@@ -141,5 +169,10 @@ class PdfDownload(generics.ListAPIView):
         return GenerateSlip.as_view()(request,*args,**kwargs)
 
 
+class ExtraChargeApiView(generics.ListCreateAPIView,generics.RetrieveDestroyAPIView):
+    queryset=ExtraCharge.objects.all()
+    serializer_class=ExtraChargeSerializer
 
+
+    
 

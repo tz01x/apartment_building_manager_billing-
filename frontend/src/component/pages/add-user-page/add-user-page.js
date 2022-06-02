@@ -4,7 +4,7 @@ import { ArrowLeft } from "tabler-icons-react";
 import moment from "moment";
 import {useNavigate} from 'react-router-dom'
 import DataEntry from "../../inputForm";
-import { useAddResidentMutation, useGetFlatsQuery } from "../../../slice/biller-slices";
+import { useAddResidentMutation, useGetExtraChargesQuery, useGetFlatsQuery } from "../../../slice/biller-slices";
 
 const initalFormData = {
   name: {
@@ -44,14 +44,14 @@ const initalFormData = {
     required: true,
   },
   flat: {
-    value: null,
+    value: "",
     type: "select",
-    label: "flat Room",
+    label: "Room NO.",
     valueStr() {
       return this.value;
     },
     dataSource:useGetFlatsQuery,
-    unpackItem:(item)=>{return {value:item.id,label:item.room_id}},
+    unpackItem:(item)=>{return {value: String(item.id),label:item.room_id}},
     required: true,
   },
   rent_history: {
@@ -63,6 +63,18 @@ const initalFormData = {
     type: "number",
     required: true,
   },
+  extraCharge: {
+    value: [],
+    multi:true,
+    type: "select",
+    label: "Extra Charges",
+    valueStr() {
+      return this.value;
+    },
+    dataSource:useGetExtraChargesQuery,
+    unpackItem:(item)=>{return {value:String(item.id),label:`${item.title} ${item.amount} Tk`}},
+    required: true,
+  },
 };
 
 const initalErrorText = {
@@ -71,7 +83,8 @@ const initalErrorText = {
   phone: "",
   nid: "",
   rent_history:"",
-  flat:""
+  flat:"",
+  extraCharge:""
 };
 
 function AddUserPage() {
@@ -94,7 +107,9 @@ function AddUserPage() {
         </Button>
       </div>
 
-      <h1 className="text-center">Add New User</h1>
+      <h1 className="text-center">
+      নতুন ভাড়াটে যুক্ত করুন
+        </h1>
 
       <div className="container">
       

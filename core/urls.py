@@ -4,10 +4,13 @@ from .views import (FlatList,FlatDetails,addSublate,removeSublate,ExtraChargeLis
                     ElectricityMeterReadingListAndCreateView,
                     MonthlyPaidMeterReadingList,
                     ResidentMonthlyPaidLog,
-                    PdfDownload,PdfPreview,GenerateSlip
+                    PdfDownload,PdfPreview,GenerateSlip,
+                    ExtraChargeApiView
                     )
                     
 urlpatterns = [
+    path('extra-charges/',ExtraChargeApiView.as_view()),
+    path('extra-charges/<int:pk>/',ExtraChargeApiView.as_view()),
     path('flat/',FlatList.as_view()),
     path('flat/<str:room_id>/',FlatDetails.as_view()),
     path('flat/<str:room_id>/sublate/add/',addSublate,),

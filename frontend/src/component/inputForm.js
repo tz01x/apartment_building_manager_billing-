@@ -13,7 +13,7 @@ import GenericSelectInput from "./genaric-select-input/genaric-select-input";
 
 import ResidentSelector from "./residient-selector/residient-selector";
 
-function DataEntry({ initialData, errorTextInitial, addData,successMessage="New Resident has been added" }) {
+function DataEntry({ initialData, errorTextInitial, addData,successMessage="New Resident has been added",extraParams=null,onSuccess=()=>{} }) {
   const [formData, setFormData] = useState({ ...initialData });
   const [errorText, setErrorText] = useState({ ...errorTextInitial });
   const [openModal, setOpenModal] = useState(false);
@@ -38,9 +38,14 @@ function DataEntry({ initialData, errorTextInitial, addData,successMessage="New 
       tempFormData[key] = formData[key].valueStr();
     });
     try {
-      await addData(tempFormData).unwrap();
+      if(extraParams!==null){
+        await addData({...extraParams,body:tempFormData}).unwrap();
+      }else{
+        await addData({body:tempFormData}).unwrap();
+      }
       setOpenModal(true);
       clearFormData();
+      onSuccess();
     } catch (error) {
       console.log(error);
       Object.keys(error.data).forEach((key) => {
@@ -61,7 +66,8 @@ function DataEntry({ initialData, errorTextInitial, addData,successMessage="New 
   function formFields() {
     return (
       <form>
-        {Object.keys(formData).map((key) => {
+        {Object.keys(formData).filter((key)=>!formData[key].hidden).map((key) => {
+
           switch (formData[key].type) {
             case "select":
               if (key == "resident") {
@@ -86,6 +92,7 @@ function DataEntry({ initialData, errorTextInitial, addData,successMessage="New 
                       value={formData[key].value}
                       label={formData[key].label}
                       error={errorText[key]}
+                      multi={!!formData[key].multi}
                     />
                   </div>
                 );

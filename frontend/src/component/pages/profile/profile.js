@@ -54,12 +54,15 @@ function Profile() {
 
   useEffect(() => {
     if (data) {
-      fetchData();
+     
     }
   }, [data]);
 
   return (
     <Container>
+      <div className="d-flex justify-content-between">
+
+      
       <Button
         variant="subtle"
         color="dark"
@@ -72,7 +75,19 @@ function Profile() {
       >
         <ArrowLeft size={20} strokeWidth={2} color={"black"} />
       </Button>
-
+      <Button
+        variant="filled"
+        color="cyan"
+        size="md"
+        title="back"
+        aria-label="back"
+        onClick={()=>{
+          navigation('/profile/update/'+params.slug)
+        }}
+      >
+        Update Profile
+      </Button>
+      </div>
       <hr></hr>
 
       {!isLoading && basicInfo(secondaryColor, data)}
@@ -147,7 +162,7 @@ function basicInfo(secondaryColor, data) {
             </span>
             <span className="d-flex align-items-center gap-1 mt-2">
               <Building size={20} strokeWidth={1.5} color={"#4040bf"} />{" "}
-              <strong>{data.flat}</strong>
+              <strong>{data.flat.room_id}</strong>
             </span>
           </div>
           <div className="col-sm-4">

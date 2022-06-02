@@ -28,7 +28,7 @@ class Flat(models.Model):
 
 class ExtraCharge(models.Model):
     title = models.CharField(max_length=20)
-    title_bn = models.CharField(max_length=20)
+    title_bn = models.CharField(max_length=20,null=True,blank=True)
     amount = models.FloatField()
     def __str__(self) -> str:           
         return self.title
@@ -81,7 +81,8 @@ class Resident(models.Model):
             return 0
 
     def save(self,*args,**kwargs):
-        self.slug=slugify(self.name)+"_"+str(uuid.uuid4())[:8]
+        if(self.slug):
+            self.slug=slugify(self.name)+"_"+str(uuid.uuid4())[:8]
         return super(Resident,self).save(*args,**kwargs)
 
 
@@ -98,7 +99,7 @@ class ElectricityMeterReading(models.Model):
     created = models.DateField(auto_now=True)
     updated = models.DateField(auto_now_add=True)
     resident = models.ForeignKey(
-        to=Resident, on_delete=models.RESTRICT, related_name='meter_readings')
+        to=Resident, on_delete=models.CASCADE, related_name='meter_readings')
     set_bill=models.IntegerField(default=0)
     class Meta:
         ordering=['-date']

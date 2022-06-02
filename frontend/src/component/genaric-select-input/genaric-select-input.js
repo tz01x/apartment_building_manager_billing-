@@ -1,12 +1,32 @@
 import React from "react";
-import {  NativeSelect } from "@mantine/core";
+import {  NativeSelect , MultiSelect} from "@mantine/core";
 
-function GenericSelectInput({ dataSource, handelForm, name, value, label , unpackItem,error}) {
+function GenericSelectInput({ dataSource, handelForm, name, value, label , unpackItem,error,multi=false}) {
   const {data,isLoading}=dataSource();
+  if(multi){
+    return (
+      <>
+      {isLoading?null:<MultiSelect
+          placeholder="Pick one"
+          radius="md"
+            size="lg"
+        data={data.map(unpackItem)}
+        name={name}
+        onChange={(value) => {
+          handelForm(name, value);
+        }}
+        
+        value={value}
+        label={label}
+        error={error}
+      />}
+      </>
+    );
+  }
   return (
     <>
     {isLoading?null:<NativeSelect
-        defaultValue={null}
+        placeholder="Pick one"
         radius="md"
           size="lg"
       data={data.map(unpackItem)}

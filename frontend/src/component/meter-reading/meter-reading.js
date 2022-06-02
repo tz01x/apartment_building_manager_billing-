@@ -82,6 +82,7 @@ const MeterReading = () => {
           initialData={initialData}
           errorTextInitial={errorTextInitial}
           addData={addElectricMeterReading}
+          successMessage={" নতুন বিদ্যুৎ মিটার রিডিং গ্রহণ করা হোইস"}
         />
       </div>
     </section>

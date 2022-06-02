@@ -4,6 +4,8 @@ from .models import (Flat, ExtraCharge, Resident,
 from .utils import DictSerializer
 
 
+
+
 class DictSerializerWithCostomID(DictSerializer):
     dict_key = "room_id"
 
@@ -11,7 +13,7 @@ class DictSerializerWithCostomID(DictSerializer):
 class FlatRoomIdSerializer(serializers.RelatedField):
     def to_representation(self, value):
 
-        return value.room_id
+        return {"id":value.id,"room_id":value.room_id}
 
 
 class FlatSerializer(serializers.ModelSerializer):
@@ -26,8 +28,8 @@ class FlatSerializer(serializers.ModelSerializer):
 class ExtraChargeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtraCharge
-        fields = ['id', 'title', 'amount']
-        list_serializer_class = DictSerializer
+        fields = "__all__"
+        
 
 class ResidentCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,6 +47,7 @@ class ResidentSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'nid',
             'slug',
             'phone',
             'pictureUrl',
