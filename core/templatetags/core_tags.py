@@ -12,7 +12,7 @@ ENG_TO_BANGLA_NUM_DICT = {
     '7': "৭",
     '8': "৮",
     '9': "৯",
-}
+}    
 
 ENG_TO_BANGLA_MONTH_NAME_DIC = {
   'january': "জানুয়ারী",
@@ -43,14 +43,21 @@ def sub(num,arg):
 
 @register.filter
 def num_eng_to_bn(num):
-	if num is None or num == '':
-		return ENG_TO_BANGLA_NUM_DICT['0']
+  if num is None or num == '':
+    return ENG_TO_BANGLA_NUM_DICT['0']
 
-	num_str=str(int(num))
-	new_str=""
-	for c in num_str:
-		new_str+=ENG_TO_BANGLA_NUM_DICT[c]
-	return new_str
+  num_str=str(int(num))
+  new_str=""
+  try:
+    
+    for c in num_str:
+      new_str+=ENG_TO_BANGLA_NUM_DICT[c]
+    return new_str
+  except Exception as e:
+    print(e)
+    print("exception for : ",num)
+    return "@" 
+
 
 @register.filter
 def date_eng_to_ban(date):

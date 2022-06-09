@@ -81,7 +81,7 @@ class Resident(models.Model):
             return 0
 
     def save(self,*args,**kwargs):
-        if(self.slug):
+        if self.slug is None :
             self.slug=slugify(self.name)+"_"+str(uuid.uuid4())[:8]
         return super(Resident,self).save(*args,**kwargs)
 
@@ -105,8 +105,8 @@ class ElectricityMeterReading(models.Model):
         ordering=['-date']
         
     def __str__(self):
-        return str(self.date)+" meter: "+str(self.current_meterReading)
-
+        return str(self.date.strftime('%B,%Y'))+" | meter: "+str(self.current_meterReading)+" | "+(self.resident.name
+)
     def clean(self):
         
         if self.date is None:
